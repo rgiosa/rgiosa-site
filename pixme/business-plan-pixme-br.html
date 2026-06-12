@@ -91,6 +91,42 @@
   .reveal.on{opacity:1;transform:none}
   .mt{margin-top:24px}
   strong{color:var(--ink)}
+  /* mobile */
+  @media(max-width:640px){
+    header.hero{padding:44px 0 32px}
+    h1{font-size:27px}
+    h2{font-size:21px}
+    .sub{font-size:14.5px}
+    .lead{font-size:14px;margin-bottom:20px}
+    .wrap{padding:0 16px}
+    nav .wrap{padding:8px 16px}
+    section{padding:36px 0}
+    .grid{gap:12px}
+    .card{padding:16px}
+    .card h3{font-size:15px}
+    .card p{font-size:13.5px}
+    .kpi{font-size:23px}
+    .verdict{padding:18px}
+    .verdict h3{font-size:17.5px}
+    .verdict p{font-size:14px}
+    .chartbox{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .chartbox table{min-width:540px}
+    table{font-size:12.5px}
+    th,td{padding:8px 8px}
+    canvas{max-height:260px}
+    .sim{padding:18px}
+    .sim-grid{gap:24px}
+    .sim-out{gap:10px}
+    .sim-out .card{padding:12px 14px}
+    .sim-out .kpi{font-size:19px}
+    #simBadge{font-size:14px;padding:11px}
+    .ctrl label{font-size:13px}
+    .gate{gap:12px;padding-bottom:24px}
+    .gnum{width:36px;height:36px;font-size:14px}
+    .gate::before{left:17px;top:40px}
+    .gbody h3{font-size:15px}
+    .gbody p,.gbody ul{font-size:13.5px}
+  }
 </style>
 </head>
 <body>
@@ -115,6 +151,25 @@
   <a href="#pixmeusa">PixMe USA</a>
   <a href="#roadmap">Plano de decisão</a>
 </div></nav>
+
+<section id="veredito"><div class="wrap reveal">
+  <div class="kick">Sumário executivo</div>
+  <h2>O veredito em uma página</h2>
+  <p class="lead">Com a banda de conversão limitada a 0,7%-1,2%, o jogo não é "dobrar a conversão", é <strong>operar no teto da banda e maximizar a produção por fotógrafo</strong>. O cenário base (30 fotógrafos, 3.500 fotos cada, conversão de 0,8%) gera lucro modesto de R$ 68 mil no ano 1. Com produção alta por fotógrafo, o ponto de equilíbrio cai para 0,67% de conversão, abaixo do piso da banda realista: toda a faixa de 0,7% a 1,2% opera no azul, ainda que fino perto do piso. E a verdadeira virada segue estrutural: com a saída programada da Flashz, a fatia da PixMe sobe de 15% para 21% no ano 2 e o mesmo negócio passa a render R$ 232 mil.</p>
+
+  <div class="grid g4">
+    <div class="card"><div class="lab">GMV anual (base)</div><div class="kpi blue">R$ 3,27M</div><p>105.000 fotos/show, conversão 0,8%, R$ 16/foto, 243 shows</p></div>
+    <div class="card"><div class="lab">Lucro ano 1 (15%)</div><div class="kpi yellow">R$ 68 mil</div><p>Após impostos e custos. Sem pró-labore. Margem de 14% sobre a receita</p></div>
+    <div class="card"><div class="lab">Lucro ano 2 (21%)</div><div class="kpi green">R$ 232 mil</div><p>Mesma operação, com Flashz zerada e Claudio mantido em 5%</p></div>
+    <div class="card"><div class="lab">Break-even</div><div class="kpi">0,67%<small> conversão</small></div><p>Abaixo do piso da banda realista, graças à produção de 3.500 fotos por fotógrafo</p></div>
+  </div>
+
+  <div class="verdict">
+    <span class="badge">RECOMENDAÇÃO: AVANÇAR COM CONDIÇÕES</span>
+    <h3>Sim para o piloto. O prêmio real está no ano 2, e ele se garante com contratos, não com planilha.</h3>
+    <p>O ano 1 é um ano de aprendizado pago: na melhor hipótese realista rende R$ 68 a 150 mil, na pior queima até R$ 155 mil. Por isso a entrada deve ser por piloto de 3 a 5 shows (R$ 25 a 35 mil em risco) com critérios objetivos de avanço ou recuo. O que transforma esse negócio em algo realmente bom são duas negociações que precisam ser fechadas agora: a tabela decrescente da Flashz (cada ponto percentual antecipado vale ~R$ 33 mil de receita no ano) e o contrato do circuito com exclusividade. Se o piloto confirmar conversão ≥ 0,8% e produção ≥ 3.000 fotos por fotógrafo, escala-se com convicção rumo aos 21% do ano 2.</p>
+  </div>
+</div></section>
 
 <section id="modelo"><div class="wrap reveal">
   <div class="kick">Seção 1</div>
