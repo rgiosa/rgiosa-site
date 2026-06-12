@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixMe BR | Business Plan: Operação de Fotografia em Shows</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0b1220; --bg2:#101a2e; --card:#16233c; --card2:#1c2c4a;
+    --ink:#e8eef9; --muted:#94a6c4; --line:#27395c;
+    --green:#2dd4a7; --yellow:#f5c044; --red:#f06a6a; --blue:#5aa2ff; --purple:#a78bfa;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header.hero{background:linear-gradient(160deg,#0b1220 0%,#13223f 60%,#0f2a3a 100%);padding:72px 0 56px;border-bottom:1px solid var(--line)}
+  .tag{display:inline-block;background:rgba(90,162,255,.12);color:var(--blue);border:1px solid rgba(90,162,255,.35);padding:4px 14px;border-radius:99px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  h1{font-size:40px;line-height:1.15;margin:18px 0 10px;font-weight:800}
+  .sub{color:var(--muted);font-size:17px;max-width:760px}
+  nav{position:sticky;top:0;background:rgba(11,18,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+  nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:10px 24px}
+  nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:7px 13px;border-radius:8px;white-space:nowrap;font-weight:500}
+  nav a:hover{background:var(--card);color:var(--ink)}
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:27px;font-weight:750;margin-bottom:6px}
+  .kick{color:var(--blue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+  .lead{color:var(--muted);max-width:780px;margin-bottom:28px;font-size:15.5px}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{font-size:16px;margin-bottom:8px;font-weight:700}
+  .card p{color:var(--muted);font-size:14px}
+  .kpi{font-size:30px;font-weight:800;margin:4px 0}
+  .kpi small{font-size:14px;color:var(--muted);font-weight:500}
+  .lab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+  .green{color:var(--green)} .yellow{color:var(--yellow)} .red{color:var(--red)} .blue{color:var(--blue)}
+  .verdict{background:linear-gradient(135deg,rgba(245,192,68,.10),rgba(245,192,68,.03));border:1px solid rgba(245,192,68,.45);border-radius:16px;padding:28px;margin-top:24px}
+  .verdict .badge{display:inline-block;background:var(--yellow);color:#1a1405;font-weight:800;padding:6px 18px;border-radius:99px;font-size:14px;letter-spacing:.04em}
+  .verdict h3{font-size:21px;margin:14px 0 8px}
+  .verdict p{color:var(--ink);opacity:.9;font-size:15px;max-width:860px}
+  .chartbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .chartbox h3{font-size:15px;margin-bottom:14px;font-weight:700}
+  .chartbox .note{font-size:12.5px;color:var(--muted);margin-top:12px}
+  canvas{max-height:340px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px;border-bottom:1px solid rgba(39,57,92,.5)}
+  td:first-child{font-weight:600}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  th.num{text-align:right}
+  .alert{background:rgba(240,106,106,.08);border:1px solid rgba(240,106,106,.4);border-radius:14px;padding:24px;margin:24px 0}
+  .alert h3{color:var(--red);font-size:17px;margin-bottom:8px}
+  .alert p{font-size:14.5px;color:var(--ink);opacity:.9}
+  .pill{display:inline-block;padding:3px 11px;border-radius:99px;font-size:11.5px;font-weight:700;letter-spacing:.03em}
+  .p-red{background:rgba(240,106,106,.15);color:var(--red);border:1px solid rgba(240,106,106,.4)}
+  .p-yel{background:rgba(245,192,68,.13);color:var(--yellow);border:1px solid rgba(245,192,68,.4)}
+  .p-grn{background:rgba(45,212,167,.13);color:var(--green);border:1px solid rgba(45,212,167,.4)}
+  .p-blu{background:rgba(90,162,255,.13);color:var(--blue);border:1px solid rgba(90,162,255,.4)}
+  /* simulador */
+  .sim{background:linear-gradient(150deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:28px}
+  .sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+  @media(max-width:820px){.sim-grid{grid-template-columns:1fr}}
+  .ctrl{margin-bottom:18px}
+  .ctrl label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:6px}
+  .ctrl label span{color:var(--blue);font-variant-numeric:tabular-nums}
+  .ctrl .hint{font-size:11.5px;color:var(--muted);margin-top:3px}
+  input[type=range]{width:100%;accent-color:var(--blue);height:5px}
+  .sim-out{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
+  .sim-out .card{padding:16px 18px}
+  .sim-out .kpi{font-size:24px}
+  #simBadge{grid-column:1/-1;text-align:center;padding:14px;border-radius:12px;font-weight:800;font-size:16px;transition:all .3s}
+  .b-grn{background:rgba(45,212,167,.15);border:1px solid var(--green);color:var(--green)}
+  .b-yel{background:rgba(245,192,68,.13);border:1px solid var(--yellow);color:var(--yellow)}
+  .b-red{background:rgba(240,106,106,.12);border:1px solid var(--red);color:var(--red)}
+  /* roadmap */
+  .gate{display:flex;gap:18px;margin-bottom:0;position:relative;padding-bottom:30px}
+  .gate:last-child{padding-bottom:0}
+  .gate::before{content:'';position:absolute;left:21px;top:46px;bottom:0;width:2px;background:var(--line)}
+  .gate:last-child::before{display:none}
+  .gnum{flex-shrink:0;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;border:2px solid var(--blue);color:var(--blue);background:var(--bg2)}
+  .gbody h3{font-size:16.5px;margin-bottom:5px}
+  .gbody p{color:var(--muted);font-size:14px;max-width:820px}
+  .gbody ul{margin:8px 0 0 18px;color:var(--muted);font-size:14px}
+  .gbody li{margin-bottom:4px}
+  footer{padding:36px 0 60px;color:var(--muted);font-size:12.5px;text-align:center}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.on{opacity:1;transform:none}
+  .mt{margin-top:24px}
+  strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">PixMe BR · Confidencial · Junho 2026 · Rev. 8</span>
+    <h1>Operação Brasil:<br>avançamos ou retrocedemos?</h1>
+    <p class="sub">Business plan da operação PixMe BR para o circuito de 243 shows no Brasil, com modelo financeiro, simulador de cenários, mapa de riscos e um plano de decisão por etapas. Revisado com banda de conversão realista (0,7% a 1,2%), Flashz com margem decrescente no ano 1 e comissão permanente do Claudio.</p>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#veredito">Veredito</a>
+  <a href="#modelo">O modelo</a>
+  <a href="#projecoes">Projeções</a>
+  <a href="#fotografo">O fotógrafo</a>
+  <a href="#simulador">Simulador</a>
+  <a href="#alavancas">Alavancas</a>
+  <a href="#riscos">Riscos</a>
+  <a href="#resp">Responsabilidades</a>
+  <a href="#pixmeusa">PixMe USA</a>
+  <a href="#roadmap">Plano de decisão</a>
+</div></nav>
+
+<section id="modelo"><div class="wrap reveal">
+  <div class="kick">Seção 1</div>
+  <h2>O modelo de negócio</h2>
+  <p class="lead">A PixMe BR orquestra a operação: credencia fotógrafos autônomos (PJ/MEI), garante o acesso aos eventos, coordena o campo e ativa o público. As vendas e o split de pagamentos rodam na plataforma da Banlek. Cada parte recebe sua fatia diretamente, o que mantém a base tributável da PixMe limitada à sua própria fatia, uma decisão fiscal correta.</p>
+  <div class="grid g2">
+    <div class="chartbox">
+      <h3>Para onde vai cada R$ 16,00 (ano 1 vs ano 2)</h3>
+      <canvas id="chSplit"></canvas>
+      <p class="note">Os 6% da Flashz são decrescentes ao longo do ano 1 até zerar no ano 2, e essa fatia migra integralmente para a PixMe (15% → 21%). Claudio é comissão permanente de originação do evento (5%). A velocidade da tabela decrescente da Flashz é a negociação mais valiosa do semestre.</p>
+    </div>
+    <div class="chartbox">
+      <h3>Unit economics de um show (cenário base, ano 1)</h3>
+      <table>
+        <tr><th>Item</th><th class="num">Valor</th></tr>
+        <tr><td>Fotógrafos em campo</td><td class="num">30</td></tr>
+        <tr><td>Fotos vendáveis (3.500/fotógrafo, média)</td><td class="num">105.000</td></tr>
+        <tr><td>Fotos vendidas (conversão 0,8%)</td><td class="num">840</td></tr>
+        <tr><td>GMV do show</td><td class="num">R$ 13.440</td></tr>
+        <tr><td>Receita PixMe (15%)</td><td class="num">R$ 2.016</td></tr>
+        <tr><td>Custos de campo (coordenação, QR, materiais)</td><td class="num red">- R$ 1.200</td></tr>
+        <tr><td>Impostos (~16,3% da receita)</td><td class="num red">- R$ 329</td></tr>
+        <tr><td>Rateio de fixos (R$ 50 mil / 243 shows)</td><td class="num red">- R$ 206</td></tr>
+        <tr><td><strong class="green">Resultado por show (ano 1)</strong></td><td class="num"><strong class="green">R$ 281</strong></td></tr>
+        <tr><td><strong class="green">Resultado por show (ano 2, fatia 21%)</strong></td><td class="num"><strong class="green">R$ 956</strong></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="grid g3 mt">
+    <div class="card"><h3>Estrutura societária</h3><p>José Benassi 40% · Marcos Ungaretti 40% · PixMe USA 20%. Ltda em Lucro Presumido, atividade de intermediação/agenciamento (presunção de 32%).</p></div>
+    <div class="card"><h3>Tributação efetiva</h3><p>IRPJ 4,8% + CSLL 2,88% + PIS/COFINS 3,65% + ISS ~5% = <strong>~16,33% sobre a receita bruta</strong>, mais adicional de IRPJ se a base presumida passar de R$ 20 mil/mês. Com split direto da Banlek, incide só sobre a fatia da PixMe.</p></div>
+    <div class="card"><h3>Custos sob a PixMe</h3><p>Coordenador de campo por show, impressão de QR codes para o público, coletes (investimento único compartilhado), contabilidade, jurídico e administração. Estimados em R$ 1.200/show + R$ 50 mil/ano fixos.</p></div>
+  </div>
+</div></section>
+
+<section id="projecoes"><div class="wrap reveal">
+  <div class="kick">Seção 2</div>
+  <h2>Projeções: três cenários do ano 1 e a virada do ano 2</h2>
+  <p class="lead">Cenários dentro da banda realista de conversão (0,7% a 1,2%) e da faixa de produção declarada (1.500 a 5.000 fotos por fotógrafo). A quarta barra mostra o cenário base rodando com a fatia de 21% do ano 2: mesma operação, 3,4 vezes o lucro.</p>
+  <div class="chartbox">
+    <h3>Lucro líquido anual por cenário</h3>
+    <canvas id="chCenarios"></canvas>
+  </div>
+  <div class="chartbox mt">
+    <h3>DRE simplificada anual (R$ mil)</h3>
+    <table>
+      <tr><th>Linha</th><th class="num">Pessimista<br>25 fot. · 1.500 fotos · 0,7%</th><th class="num">Base<br>30 fot. · 3.500 fotos · 0,8%</th><th class="num">Otimista<br>40 fot. · 4.500 fotos · 0,9%</th><th class="num">Base ano 2<br>fatia 21%</th></tr>
+      <tr><td>GMV total</td><td class="num">1.021</td><td class="num">3.266</td><td class="num">6.299</td><td class="num">3.266</td></tr>
+      <tr><td>Receita PixMe</td><td class="num">153</td><td class="num">490</td><td class="num">945</td><td class="num">686</td></tr>
+      <tr><td>Impostos (Lucro Presumido)</td><td class="num red">(25)</td><td class="num red">(80)</td><td class="num red">(161)</td><td class="num red">(112)</td></tr>
+      <tr><td>Custos operacionais</td><td class="num red">(283)</td><td class="num red">(342)</td><td class="num red">(425)</td><td class="num red">(342)</td></tr>
+      <tr><td><strong>Lucro líquido</strong></td><td class="num"><strong class="red">(155)</strong></td><td class="num"><strong class="green">68</strong></td><td class="num"><strong class="green">360</strong></td><td class="num"><strong class="green">232</strong></td></tr>
+      <tr><td>Margem sobre receita</td><td class="num red">-101%</td><td class="num green">14%</td><td class="num green">38%</td><td class="num green">34%</td></tr>
+    </table>
+    <p class="note">Premissas de custo: pessimista R$ 1.000/show + R$ 40 mil fixos; base R$ 1.200/show + R$ 50 mil; otimista R$ 1.500/show + R$ 60 mil. Não inclui pró-labore dos sócios. Atenção: o cenário pessimista queima R$ 155 mil no ano, o que reforça a entrada por piloto. Se a tabela decrescente da Flashz for bem negociada (média de 3% no ano 1, fatia média da PixMe de 18%), o lucro base do ano 1 sobe para R$ 150 mil.</p>
+  </div>
+  <div class="chartbox mt">
+    <h3>Sensibilidade: lucro anual vs. taxa de conversão (cenário base, fatia 15%)</h3>
+    <canvas id="chConv"></canvas>
+    <p class="note">Dentro da banda realista, cada 0,1 ponto percentual de conversão vale ~R$ 51 mil de lucro anual. O break-even é 0,67%, abaixo do piso da banda: com produção de 3.500 fotos por fotógrafo, toda a faixa realista opera positiva, mas o piso rende pouco. A ativação no estádio decide em qual metade da banda vocês vão operar.</p>
+  </div>
+</div></section>
+
+<section id="fotografo"><div class="wrap reveal">
+  <div class="kick">Seção 3</div>
+  <h2>O fotógrafo: a meritocracia funciona, mas o piso é cruel</h2>
+  <p class="lead">O modelo tem um incentivo saudável: o fotógrafo sabe que quanto mais fotos vendáveis produzir, mais ganha. Quem produz 5.000 fotos leva R$ 320 a 480 por show; quem produz 1.500, leva R$ 96 a 144. O problema não é o teto, é o piso: no cenário pessimista (1.500 fotos, conversão 0,7%) o ganho cai para <strong>R$ 84 por show</strong>, e fotógrafo que ganha R$ 84 não volta.</p>
+  <div class="alert">
+    <h3>Duas verdades para gerenciar desde o primeiro show</h3>
+    <p><strong>1. A retenção depende da média, não dos campeões.</strong> Se a mediana de produção ficar perto de 1.500-2.000 fotos, a maioria ganhará pouco, a rotatividade será alta e o custo de recrutar e treinar substitutos vira um dreno invisível. O onboarding precisa empurrar todo mundo para 3.500+ fotos com técnica, posicionamento e metas claras. <strong>2. Volume sem qualidade derruba a conversão de todos.</strong> A premissa de conversão fixa sobre fotos tiradas só se sustenta se as fotos forem boas. Incentivar volume bruto sem curadoria pode inflar o denominador e puxar a conversão para o fundo da banda. A métrica certa para rankear fotógrafo é <strong>receita gerada</strong>, não fotos tiradas, e a Banlek tem analytics para isso.</p>
+  </div>
+  <div class="grid g2">
+    <div class="chartbox">
+      <h3>Ganho do fotógrafo por show, conforme produção</h3>
+      <canvas id="chFot"></canvas>
+      <p class="note">Conversão de 0,8%, exceto onde indicado. Referência: cachê de mercado para cobertura de evento dificilmente sai por menos de R$ 350 a 600. Só os fotógrafos de alta produção alcançam esse patamar.</p>
+    </div>
+    <div class="card">
+      <h3>Como desenhar o time</h3>
+      <p style="margin-bottom:12px"><strong class="green">Recrutar pela produção, reter pelo ranking.</strong> A receita da PixMe depende do total de fotos × conversão, não do número de fotógrafos. 30 fotógrafos de 3.500 fotos valem mais que 50 de 2.100: mesmo GMV, ganho individual 67% maior, metade do custo de coordenação e credenciamento.</p>
+      <p style="margin-bottom:12px"><strong>Mecânicas que seguram os bons:</strong> ranking público de receita por fotógrafo, prioridade nos melhores shows para o top 10, bônus de performance acima de 3.500 fotos vendáveis, e transparência total de vendas em tempo real no app.</p>
+      <p>Meta operacional: mediana de produção ≥ 3.500 fotos e ganho mediano ≥ R$ 225/show até o fim do piloto.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="simulador"><div class="wrap reveal">
+  <div class="kick">Seção 4 · Interativo</div>
+  <h2>Simulador de viabilidade</h2>
+  <p class="lead">Mexa nas premissas e veja o resultado anual em tempo real. Impostos do Lucro Presumido (16,33% + adicional de IRPJ) calculados automaticamente. Use a fatia de 21% para simular o ano 2 (Flashz zerada) ou 18% para o ano 1 com tabela decrescente bem negociada.</p>
+  <div class="sim">
+    <div class="sim-grid">
+      <div>
+        <div class="ctrl"><label>Shows no ano <span id="vShows">243</span></label><input type="range" id="sShows" min="20" max="243" value="243" step="1"></div>
+        <div class="ctrl"><label>Fotógrafos por show <span id="vFot">30</span></label><input type="range" id="sFot" min="10" max="50" value="30" step="1"></div>
+        <div class="ctrl"><label>Fotos vendáveis por fotógrafo <span id="vFotos">3.500</span></label><input type="range" id="sFotos" min="1500" max="5000" value="3500" step="100"><div class="hint">Faixa real observada: 1.500 a 5.000, depende do perfil</div></div>
+        <div class="ctrl"><label>Conversão sobre fotos tiradas <span id="vConv">0,8%</span></label><input type="range" id="sConv" min="50" max="150" value="80" step="5"><div class="hint">Banda realista: 0,7% a 1,2% · break-even em ~0,67% nas premissas base</div></div>
+        <div class="ctrl"><label>Preço médio por foto <span id="vPreco">R$ 16</span></label><input type="range" id="sPreco" min="10" max="30" value="16" step="1"><div class="hint">Pacotes elevam o preço médio efetivo por venda</div></div>
+        <div class="ctrl"><label>Custo de campo por show <span id="vCusto">R$ 1.200</span></label><input type="range" id="sCusto" min="400" max="2500" value="1200" step="50"></div>
+        <div class="ctrl"><label>Custos fixos anuais <span id="vFixo">R$ 50 mil</span></label><input type="range" id="sFixo" min="20" max="150" value="50" step="5"></div>
+        <div class="ctrl"><label>Fatia da PixMe <span id="vShare">15%</span></label><input type="range" id="sShare" min="10" max="30" value="15" step="1"><div class="hint">15% ano 1 · 18% com Flashz decrescente · 21% ano 2</div></div>
+      </div>
+      <div class="sim-out">
+        <div id="simBadge" class="b-yel">VIÁVEL, MARGEM APERTADA</div>
+        <div class="card"><div class="lab">GMV anual</div><div class="kpi blue" id="oGmv">R$ 3,27M</div></div>
+        <div class="card"><div class="lab">Receita PixMe</div><div class="kpi" id="oRec">R$ 490 mil</div></div>
+        <div class="card"><div class="lab">Impostos</div><div class="kpi" id="oImp" style="color:var(--muted)">R$ 80 mil</div></div>
+        <div class="card"><div class="lab">Custos operacionais</div><div class="kpi" id="oCustos" style="color:var(--muted)">R$ 342 mil</div></div>
+        <div class="card"><div class="lab">Lucro líquido anual</div><div class="kpi" id="oLucro">R$ 68 mil</div></div>
+        <div class="card"><div class="lab">Ganho do fotógrafo/show</div><div class="kpi" id="oFotG">R$ 224</div></div>
+      </div>
+    </div>
+    <div class="chartbox" style="margin-top:26px;background:rgba(11,18,32,.45)">
+      <h3>Quanto cada participante leva no ano, nas premissas acima</h3>
+      <table>
+        <tr><th>Participante</th><th class="num">Fatia</th><th class="num">R$ no ano</th></tr>
+        <tr><td>Fotógrafos (total)</td><td class="num">50%</td><td class="num" id="tFot"></td></tr>
+        <tr><td style="font-weight:400;color:var(--muted);padding-left:28px">média por fotógrafo no ano</td><td class="num"></td><td class="num" id="tFotU" style="color:var(--muted)"></td></tr>
+        <tr><td>Evento</td><td class="num" id="pEv">15%</td><td class="num" id="tEv"></td></tr>
+        <tr><td>Banlek (plataforma)</td><td class="num">9%</td><td class="num" id="tBan"></td></tr>
+        <tr><td>Flashz (know-how, decrescente)</td><td class="num" id="pFl">6%</td><td class="num" id="tFl"></td></tr>
+        <tr><td>Claudio (originação, permanente)</td><td class="num">5%</td><td class="num" id="tCla"></td></tr>
+        <tr><td>PixMe BR (receita bruta)</td><td class="num" id="pPix">15%</td><td class="num" id="tPix"></td></tr>
+        <tr><td><strong class="green">PixMe BR (líquido, após impostos e custos)</strong></td><td class="num"></td><td class="num" id="tPixL"></td></tr>
+        <tr><td style="font-weight:400;color:var(--muted);padding-left:28px">PixMe USA: 20% do lucro líquido distribuído, após IRRF de 10%</td><td class="num"></td><td class="num" id="tUsa" style="color:var(--muted)"></td></tr>
+      </table>
+      <p class="note">Flashz e Evento são tratados como residuais ao mover a fatia da PixMe: até 21%, a diferença sai da Flashz (tabela decrescente); acima de 21%, sai da fatia do Evento (renegociação). Média por fotógrafo assume o mesmo time em todos os shows. Os demais participantes não carregam custos da operação, então o repasse é efetivamente o que levam (antes dos próprios tributos); por isso a comparação justa com a PixMe BR é pela linha líquida. PixMe USA pressupõe distribuição integral do lucro e retenção de 10% na remessa (Lei 15.270/2025).</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="alavancas"><div class="wrap reveal">
+  <div class="kick">Seção 5</div>
+  <h2>Alavancas estratégicas, em ordem de impacto</h2>
+  <p class="lead">Com a conversão limitada a uma banda estreita, o ranking de alavancas muda: produção por fotógrafo e a velocidade da tabela Flashz passam à frente. O custo continua não sendo o problema deste negócio.</p>
+  <div class="grid g2">
+    <div class="card"><h3><span class="pill p-grn">1 · Impacto máximo</span>&nbsp; Produção por fotógrafo</h3><p>É a alavanca mais elástica do modelo: a faixa real vai de 1.500 a 5.000 fotos, uma variação de 3,3x na receita sem mexer em preço nem conversão. Cada 500 fotos a mais na mediana valem ~R$ 58 mil de lucro anual, com treinamento, posicionamento no estádio e metas. E o incentivo já está alinhado: o fotógrafo sabe que produz mais, ganha mais.</p></div>
+    <div class="card"><h3><span class="pill p-grn">2</span>&nbsp; Antecipar a tabela decrescente da Flashz</h3><p>Cada ponto percentual da Flashz vale ~R$ 33 mil de receita anual no GMV base. A diferença entre uma tabela que zera no Q4 e uma que cai lentamente é de R$ 80 a 100 mil no ano 1. Proposta concreta: 6% no Q1, 4% no Q2, 2% no Q3, zero no Q4, condicionada à entrega documentada do know-how (playbooks por escrito, acompanhamento dos primeiros 10 shows). Formalizar em contrato com não-circunvenção.</p></div>
+    <div class="card"><h3><span class="pill p-yel">3</span>&nbsp; Operar no teto da banda de conversão</h3><p>De 0,7% para 0,9% são ~R$ 102 mil de diferença no lucro anual. As ferramentas: reconhecimento facial opt-in da Banlek ativo desde o piloto (selfie e receba suas fotos), QR no telão entre músicas, upload ainda durante o show e notificação nas primeiras 12 horas. A conversão não fura o teto de 1,2%, mas a diferença entre o piso e o teto é o negócio inteiro.</p></div>
+    <div class="card"><h3><span class="pill p-yel">4</span>&nbsp; Pacotes: elevar o preço médio por venda</h3><p>Se a quantidade de compradores tem teto, o ticket de cada comprador não tem. Pacotes (1 foto R$ 16, 3 por R$ 39, todas as suas fotos por R$ 59) elevam o preço médio efetivo por foto vendida. No simulador, preço médio de R$ 20 em vez de R$ 16 adiciona ~R$ 102 mil de lucro no cenário base. Testar A/B no piloto.</p></div>
+    <div class="card"><h3><span class="pill p-blu">5</span>&nbsp; Claudio como motor comercial, não como custo</h3><p>Os 5% são permanentes por ser comissão de originação. Então a pergunta certa não é "como remover", é "como fazer render": vincular contratualmente a comissão à vigência e renovação do contrato que ele originou, e oferecer os mesmos 5% por novos circuitos que ele trouxer. Transforma um custo fixo de capital em canal de aquisição com CAC zero adiantado.</p></div>
+    <div class="card"><h3><span class="pill p-blu">6</span>&nbsp; Janela de venda pós-show</h3><p>O pico de compra é nas primeiras 48h, com o show ainda vivo na memória. Upload durante o evento, notificação na manhã seguinte e remarketing por 7 dias. Cada dia de atraso no upload é conversão jogada fora dentro de uma banda que já é estreita.</p></div>
+  </div>
+</div></section>
+
+<section id="riscos"><div class="wrap reveal">
+  <div class="kick">Seção 6</div>
+  <h2>Mapa de riscos</h2>
+  <p class="lead">Em ordem de severidade × probabilidade. Os três primeiros são bloqueantes: precisam de resposta antes do primeiro show.</p>
+  <div class="chartbox">
+    <table>
+      <tr><th>Risco</th><th>Grau</th><th>Descrição e mitigação</th></tr>
+      <tr><td>Contrato dos shows não assinado</td><td><span class="pill p-red">CRÍTICO</span></td><td>Todo o plano depende de uma negociação "avançada". Sem contrato assinado com <strong>exclusividade de captação fotográfica</strong>, não há negócio, há esperança. Nenhum investimento além do jurídico até a assinatura.</td></tr>
+      <tr><td>Acordos Flashz e Claudio informais</td><td><span class="pill p-red">CRÍTICO</span></td><td>A intenção das partes é boa (Flashz decrescente, Claudio comissão de originação), mas nada está no papel. Sem contrato, a tabela decrescente da Flashz não existe juridicamente, e a Flashz, que opera negócio semelhante, segue livre para procurar o promotor diretamente. Formalizar já: tabela trimestral com gatilhos de entrega de know-how, <strong>não-circunvenção e não-competição nesta oportunidade</strong>; para Claudio, contrato de comissão vinculado à vigência do contrato originado.</td></tr>
+      <tr><td>Risco trabalhista (fotógrafos)</td><td><span class="pill p-red">ALTO</span></td><td>Colete da empresa + escala definida + coordenador de campo + recorrência = ingredientes clássicos de vínculo empregatício. Mitigar: contrato PJ bem redigido, sem exclusividade, convocação por aceite (fotógrafo escolhe os shows), remuneração 100% por resultado. Uma ação trabalhista de R$ 50 mil apaga boa parte do lucro do ano 1 base.</td></tr>
+      <tr><td>Margem de erro estreita no ano 1</td><td><span class="pill p-yel">ALTO</span></td><td>Break-even a 0,67%, logo abaixo do piso da banda. Mas se produção e conversão decepcionarem juntas (cenário pessimista), o ano 1 pode queimar até R$ 155 mil. Mitigação: piloto com gatilho objetivo de recuo, custos de campo variabilizados ao máximo e zero compromisso de longo prazo antes do Gate 1.</td></tr>
+      <tr><td>LGPD e direito de imagem</td><td><span class="pill p-yel">ALTO</span></td><td>Vender fotos de milhares de pessoas, incluindo menores, exige base legal sólida: aviso no ingresso e no evento, consentimento opt-in para reconhecimento facial, política de remoção ágil, e cuidado redobrado com imagens de crianças. Endereçável, mas precisa de parecer jurídico próprio antes do piloto.</td></tr>
+      <tr><td>Dependência da Banlek</td><td><span class="pill p-yel">MÉDIO</span></td><td>Checkout, hospedagem, reconhecimento facial e split em um único fornecedor com 9%. Garantir contratualmente: acesso aos dados de compradores, SLA de disponibilidade em dia de show e portabilidade. O acordo existente é da PixMe USA para o território americano; a operação BR precisa do seu próprio instrumento.</td></tr>
+      <tr><td>Limite do MEI</td><td><span class="pill p-blu">MÉDIO</span></td><td>Fotógrafo MEI tem teto de R$ 81 mil/ano. Um top performer (5.000 fotos, 100+ shows) chega perto. Orientar migração para ME e prever isso no onboarding.</td></tr>
+      <tr><td>Concentração e sazonalidade</td><td><span class="pill p-blu">MÉDIO</span></td><td>243 shows = ~20/mês espalhados pelo país, com picos de calendário. Coordenação nacional com equipe enxuta é o teste operacional real. O piloto deve incluir 2 shows na mesma semana em cidades diferentes.</td></tr>
+      <tr><td>Premissas de terceiros</td><td><span class="pill p-blu">MÉDIO</span></td><td>A banda de conversão e a produção por fotógrafo vêm da experiência da Flashz, em contexto possivelmente diferente. Tratar como hipótese a validar no piloto, não como fato.</td></tr>
+    </table>
+  </div>
+</div></section>
+
+<section id="resp"><div class="wrap reveal">
+  <div class="kick">Seção 7</div>
+  <h2>Responsabilidades e governança</h2>
+  <p class="lead">Sociedade 40/40/20 sem definição de papéis é fonte previsível de conflito. Sugestão de divisão clara, a formalizar no contrato social e em acordo de sócios.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Sócio-operador A (Benassi, 40%)</h3><p><strong>Comercial e eventos.</strong> Fechar e manter o contrato do circuito, relacionamento com promotores e com Claudio (originação), negociação de contrapartidas (telão, pontos de ativação), expansão para novos circuitos.</p></div>
+    <div class="card"><h3>Sócio-operador B (Ungaretti, 40%)</h3><p><strong>Operações.</strong> Recrutamento e gestão do time de fotógrafos, programa de produtividade (mediana ≥ 3.500 fotos), coordenação de campo, logística nacional, relação operacional com a Banlek.</p></div>
+    <div class="card"><h3>PixMe USA (20%)</h3><p><strong>Tecnologia, marca e método.</strong> Ponte com a Banlek (acordo e roadmap), padrões de ativação e conversão, analytics, governança e reporting. É também o canal de absorção do know-how da Flashz, com playbooks documentados antes do fim da tabela decrescente.</p></div>
+  </div>
+  <div class="card mt"><h3>Regras de ouro da governança</h3><p>1) Acordo de sócios com papéis, dedicação e regras de deadlock antes do primeiro real investido. 2) Pró-labore definido desde já, mesmo que simbólico: lucro de R$ 68 mil com três sócios trabalhando é remuneração, não retorno. 3) Dashboard mensal com as 5 métricas que decidem tudo: conversão, mediana de fotos por fotógrafo, ganho mediano do fotógrafo, custo por show e churn de fotógrafos. 4) Dados financeiros e de clientes não saem para terceiros (incluindo Flashz) sem autorização expressa.</p></div>
+</div></section>
+
+<section id="pixmeusa"><div class="wrap reveal">
+  <div class="kick">Seção 8</div>
+  <h2>A perspectiva da PixMe USA: os 20% valem o risco?</h2>
+  <p class="lead">A PixMe USA entra como sócia minoritária (20%) de uma Ltda controlada por dois sócios locais com 40% cada. A pergunta certa não é só "quanto rende", mas "o que protege esses 20%". A resposta honesta: pelo dividendo puro, a posição mal se paga no ano 1; o valor real é estratégico, e ele se consolida com três salvaguardas institucionais construídas agora, no desenho da sociedade.</p>
+
+  <div class="grid g3">
+    <div class="card"><h3>O que entra</h3><p>20% do lucro distribuído, hoje sujeito a <strong>IRRF de 10% na remessa ao exterior</strong> (Lei 15.270/2025, vigente desde 2026). No base do ano 1: R$ 13,7 mil brutos, <strong>R$ 12,3 mil líquidos</strong>. No ano 2 a 21%: <strong>R$ 41,8 mil</strong>. No otimista do ano 2 (lucro ~R$ 664 mil): <strong>R$ 119 mil</strong>. Tudo em BRL, com risco cambial na remessa.</p></div>
+    <div class="card"><h3>O que custa manter</h3><p>Sócia estrangeira de Ltda exige: procurador residente no Brasil com poderes para receber citação, registro do investimento no Banco Central (RDE-IED), documentos societários traduzidos e apostilados, e obrigações declaratórias recorrentes. Estimativa: R$ 8 a 15 mil/ano entre jurídico e contabilidade adicionais, mais o custo de atenção dos sócios.</p></div>
+    <div class="card"><h3>O cálculo honesto</h3><p>R$ 12 mil líquidos no ano 1 não pagam nem o overhead da posição. O retorno financeiro só fica interessante do ano 2 em diante, e mesmo assim é modesto perto do risco. A participação se justifica como <strong>opção barata sobre o mercado brasileiro</strong>: dados, método validado e marca, financiados majoritariamente pelos sócios locais.</p></div>
+  </div>
+
+  <div class="grid g2 mt">
+    <div class="card"><h3 class="red">A posição minoritária: o que a estrutura permite</h3><p style="margin-bottom:10px">Na Ltda, desde a reforma dos quóruns (Lei 14.451/2022), alterações do contrato social passam com <strong>maioria absoluta do capital</strong>. Em qualquer estrutura 40/40/20, a sócia de 20% não possui, sozinha, poder de bloqueio: objeto social, administração, aumentos de capital (com diluição para quem não acompanhar) e política de distribuição de lucros são definidos pela maioria. Não é uma questão de confiança entre os sócios, e sim de desenho institucional: regras claras escritas hoje evitam que divergências futuras, mesmo legítimas e de boa-fé, virem impasse.</p><p>Há ainda o risco de responsabilização: em passivos trabalhistas e de consumidor, a desconsideração da personalidade jurídica pode alcançar sócios. Mitigação: a PixMe USA <strong>não deve ser administradora</strong>, o capital deve estar integralizado e a operação precisa de compliance trabalhista rigoroso (justamente o risco nº 3 do mapa).</p></div>
+    <div class="card"><h3 class="green">Três salvaguardas que fortalecem todos os sócios</h3><p style="margin-bottom:10px"><strong>1. Marca no INPI em nome da PixMe USA</strong>, licenciada à PixMe BR. Centraliza o ativo de marca no grupo, padroniza o uso internacional e cria a opção futura de remunerar a PixMe USA via royalties, com tratamento fiscal próprio a avaliar.</p><p style="margin-bottom:10px"><strong>2. Acordo de quotistas junto com o contrato social:</strong> quórum qualificado de 85%+ para matérias sensíveis (objeto, novos sócios, aumento de capital, endividamento, política de dividendos), distribuição mínima de lucros, tag along, direito de informação mensal e não-competição recíproca entre os sócios. É o instrumento que alinha expectativas de todos enquanto a relação é boa, para que continue boa.</p><p><strong>3. Papel estratégico documentado:</strong> tecnologia, método e relação Banlek formalmente sob a PixMe USA, para que a participação reflita uma contribuição contínua e mensurável ao negócio.</p></div>
+  </div>
+
+  <div class="chartbox mt">
+    <h3>Dividendo líquido da PixMe USA por cenário (distribuição integral do lucro)</h3>
+    <table>
+      <tr><th>Cenário</th><th class="num">Lucro PixMe BR</th><th class="num">20% PixMe USA</th><th class="num">IRRF 10% remessa</th><th class="num">Líquido nos EUA</th></tr>
+      <tr><td>Ano 1 base (fatia 15%)</td><td class="num">R$ 68 mil</td><td class="num">R$ 13,7 mil</td><td class="num red">(R$ 1,4 mil)</td><td class="num">R$ 12,3 mil</td></tr>
+      <tr><td>Ano 1 com Flashz bem negociada (18%)</td><td class="num">R$ 150 mil</td><td class="num">R$ 30,1 mil</td><td class="num red">(R$ 3,0 mil)</td><td class="num">R$ 27,0 mil</td></tr>
+      <tr><td>Ano 2 base (21%)</td><td class="num">R$ 232 mil</td><td class="num">R$ 46,4 mil</td><td class="num red">(R$ 4,6 mil)</td><td class="num green">R$ 41,8 mil</td></tr>
+      <tr><td>Ano 2 otimista (21%)</td><td class="num">R$ 664 mil</td><td class="num">R$ 132,8 mil</td><td class="num red">(R$ 13,3 mil)</td><td class="num green">R$ 119,5 mil</td></tr>
+    </table>
+    <p class="note">Lei 15.270/2025: dividendos remetidos ao exterior sofrem retenção de 10% desde 2026; há crédito compensatório apenas se a carga combinada superar as alíquotas nominais de IRPJ+CSLL, o que dificilmente ocorre em Lucro Presumido. A tributação nos EUA depende da classificação fiscal da LLC; coordenar com o tax advisor americano. Validar tudo com o contador antes da primeira distribuição.</p>
+  </div>
+
+  <div class="mt">
+    <h3 style="font-size:19px;margin-bottom:6px">A alternativa comissionada: o número justo e o desenho do equilíbrio</h3>
+    <p class="lead" style="margin-bottom:18px">Se a escolha for dispensar o vínculo societário, a comissão da PixMe USA precisa nascer da matemática, não da intuição. O raciocínio tem três peças: de onde sai o dinheiro, onde estão os pontos de indiferença de cada lado, e qual desenho contratual mantém os dois lados ganhando em qualquer cenário.</p>
+    <div class="grid g3">
+      <div class="card"><h3>1 · De onde sai o dinheiro</h3><p>Ao sair do quadro societário, a PixMe USA libera seus 20% do lucro para os sócios locais. É exclusivamente esse ganho que financia a comissão. Qualquer percentual que custe mais do que isso é subsídio dos locais; qualquer um que pague menos do que os dividendos perdidos é prejuízo da PixMe USA. O justo vive entre essas duas fronteiras.</p></div>
+      <div class="card"><h3>2 · Os pontos de indiferença</h3><p>No cenário base do ano 2, os locais ficam indiferentes com comissão de <strong>1,7% do GMV</strong> e a PixMe USA precisa de ao menos ~1,5% para não perder em relação aos dividendos. No otimista, a janela inteira sobe: a PixMe USA precisa de ~2,2% e os locais aceitam até ~2,6%, porque com lucro alto vale mais a pena recomprar os 20%.</p></div>
+      <div class="card"><h3>3 · Os limites de sanidade</h3><p>Acima de <strong>3%</strong>, os locais subsidiam a estrutura e o split repete o vício de origem (quem opera fica com pouco). E nada disso vale no ano 1: enquanto a Flashz estiver no split, qualquer comissão adicional derruba a PixMe BR. <strong>Vigência somente após a saída da Flashz.</strong></p></div>
+    </div>
+    <div class="chartbox mt">
+      <h3>Três desenhos possíveis no ano 2, lado a lado (valores líquidos anuais)</h3>
+      <table>
+        <tr><th>Desenho</th><th class="num">Locais · base</th><th class="num">PixMe USA · base</th><th class="num">Locais · otimista</th><th class="num">PixMe USA · otimista</th></tr>
+        <tr><td>Referência: sociedade 20% (dividendos)</td><td class="num">R$ 186 mil</td><td class="num">R$ 42 mil</td><td class="num">R$ 531 mil</td><td class="num">R$ 119 mil</td></tr>
+        <tr><td>Comissão flat 1,7% do GMV</td><td class="num green">R$ 177-186 mil</td><td class="num green">R$ 47 mil</td><td class="num green">R$ 562-578 mil</td><td class="num red">R$ 91 mil</td></tr>
+        <tr><td>Comissão flat 2,4% do GMV</td><td class="num red">R$ 155-167 mil</td><td class="num green">R$ 67 mil</td><td class="num green">R$ 520-542 mil</td><td class="num green">R$ 128 mil</td></tr>
+        <tr><td><strong class="green">Escalonada: 1,7% até GMV R$ 3,5M + 3% sobre o excedente</strong></td><td class="num green">R$ 177-186 mil</td><td class="num green">R$ 47 mil</td><td class="num green">R$ 526-548 mil</td><td class="num green">R$ 122 mil</td></tr>
+      </table>
+      <p class="note">Intervalos dos locais refletem o cenário sem e com o gross-up dos tributos de remessa suportados pela PixMe BR, estimado em ~15% da comissão, o que já cobre a via recomendada de royalties (CIDE 10% + eventual ISS). Importante: os pontos de indiferença (1,7% e 2,2-2,6%) são calculados antes desse gross-up. Quando ele entra na conta, o pequeno superávit fiscal da comissão (16,33% de presumido economizado contra 15% de IRRF) desaparece e a janela win-win estritamente financeira praticamente fecha. Ou seja: a rota comissionada não cria valor, ela compra a liberdade societária ao custo de ~10-15% da comissão, um preço conhecido que deve ser decidido como tal. A comissão flat trai alguém em algum cenário: 1,7% deixa a PixMe USA para trás se o negócio explodir; 2,4% pune os locais se ficar no base. <strong>A escalonada é o único desenho justo nos dois mundos</strong>, porque reproduz a alavancagem que a participação societária teria: piso protegido no cenário fraco, upside compartilhado no forte. Completam o desenho: revisão anual atrelada ao GMV real, prazo determinado com renovação e cláusula de renegociação se o mix de eventos mudar.</p>
+    </div>
+
+    <div class="chartbox mt">
+      <h3>Parecer: como exportar a comissão para os EUA</h3>
+      <p class="note" style="margin:0 0 14px">A forma jurídica da remessa importa tanto quanto o percentual: o mesmo R$ 1 pode chegar aos EUA com fricções totais muito diferentes conforme a caracterização contratual. Brasil e EUA não possuem tratado de bitributação (vale a reciprocidade para crédito do imposto retido). Estimativas abaixo por R$ 100 remetidos; alíquotas de ISS variam por município e a incidência exata depende do contrato.</p>
+      <table>
+        <tr><th>Via contratual</th><th>Tributos envolvidos</th><th class="num">Chega nos EUA</th><th class="num">Custo extra para a PixMe BR</th></tr>
+        <tr><td>Dividendos (referência societária)</td><td>IRRF 10% na remessa (Lei 15.270/2025)</td><td class="num green">R$ 90</td><td class="num green">R$ 0</td></tr>
+        <tr><td><strong class="green">Royalties: licença de marca e tecnologia</strong></td><td>IRRF 15% + CIDE 10% (do remetente); ISS possível se enquadrado como cessão de uso (LC 116, item 3.02); sem PIS/COFINS-importação na parcela de royalty puro</td><td class="num">R$ 85</td><td class="num">~R$ 10-15</td></tr>
+        <tr><td>Comissão de intermediação/agenciamento</td><td>IRRF 15% + PIS/COFINS-importação 9,25% + ISS-importação 2-5%; sem CIDE se não houver transferência de tecnologia</td><td class="num">R$ 85</td><td class="num">~R$ 11-14</td></tr>
+        <tr><td>Serviços técnicos/assistência administrativa</td><td>IRRF 15% + CIDE 10% + PIS/COFINS-importação 9,25% + ISS-importação 2-5%</td><td class="num red">R$ 85</td><td class="num red">~R$ 21-24</td></tr>
+      </table>
+      <p class="note" style="margin-top:14px"><strong>Recomendações do parecer:</strong> (1) A via preferida é a <strong>licença de marca e tecnologia (royalties)</strong>: menor fricção total e maior substância econômica, já que marca, método e relação com a plataforma são ativos reais da PixMe USA; um desenho híbrido (royalty como espinha dorsal + fee de serviços pontual) é possível, mas cada parcela segue seu próprio regime. (2) <strong>Antes da primeira remessa:</strong> contrato averbado no INPI (requisito para remessas de royalties e para a defesa do preço) e operação registrada no Banco Central; remessas mensais com invoice e contrato de câmbio. (3) <strong>Lucro Presumido:</strong> a despesa com a comissão não gera nenhuma dedução fiscal para a PixMe BR, o custo é integral; por isso o percentual precisa caber dentro do equilíbrio calculado acima. (4) <strong>Preços de transferência</strong> (Lei 14.596/2023): se caracterizada vinculação entre as partes, o percentual precisa se sustentar como preço de mercado; o benchmark da própria operação (Flashz a 6% temporário por know-how) ajuda a documentar a razoabilidade de 1,7-3% perpétuo por marca e tecnologia. (5) <strong>Nos EUA:</strong> a comissão é receita ordinária da LLC (transparente para os membros), com crédito do IRRF brasileiro por reciprocidade; considerar o risco cambial no contrato (reajuste ou hedge). (6) Este parecer é análise de negócio, não aconselhamento tributário: validar caracterização, alíquotas municipais e obrigações acessórias com tributarista antes de assinar.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap reveal">
+  <div class="kick">Seção 9</div>
+  <h2>Plano de decisão: gates de avanço ou recuo</h2>
+  <p class="lead">Cada gate tem critérios objetivos. Se os números não vierem, o recuo é barato e sem drama. Se vierem, o avanço é feito com convicção e dados próprios.</p>
+
+  <div class="gate"><div class="gnum">0</div><div class="gbody">
+    <h3>Pré-requisitos jurídicos <span class="pill p-red">antes de qualquer show</span></h3>
+    <ul>
+      <li>Contrato do circuito assinado, com exclusividade de captação e contrapartida de ativação (telão/QR).</li>
+      <li>Contrato Flashz: tabela decrescente trimestral (proposta: 6% → 4% → 2% → 0), gatilhos de entrega de know-how documentado, não-circunvenção e não-competição nesta oportunidade.</li>
+      <li>Contrato Claudio: comissão de 5% vinculada à vigência e renovação do contrato originado, extensível a novos circuitos que ele trouxer.</li>
+      <li>Contrato PJ dos fotógrafos revisado por trabalhista; parecer LGPD/imagem; instrumento PixMe BR × Banlek para o território brasileiro (split, dados, SLA).</li>
+      <li>Acordo de quotistas com as salvaguardas societárias (Seção 8) e depósito da marca PixMe no INPI em nome da PixMe USA, com licença à PixMe BR.</li>
+      <li>Custo estimado desta fase: R$ 15 a 25 mil em jurídico e contabilidade.</li>
+    </ul>
+  </div></div>
+
+  <div class="gate"><div class="gnum">1</div><div class="gbody">
+    <h3>Piloto: 3 a 5 shows <span class="pill p-yel">investimento ~R$ 25-35 mil</span></h3>
+    <p>Shows de perfis diferentes (capital e interior, públicos distintos). Reconhecimento facial ativo, pacotes de preço em teste A/B, 25-30 fotógrafos selecionados com meta de produção.</p>
+    <ul>
+      <li><strong>Avança se:</strong> conversão ≥ 0,8% · mediana de produção ≥ 3.000 fotos/fotógrafo · custo de campo ≤ R$ 1.500/show · ganho mediano do fotógrafo ≥ R$ 225 e disposição de voltar (pesquisa simples).</li>
+      <li><strong>Recua se:</strong> conversão &lt; 0,65% mesmo com ativação completa e reconhecimento facial ativo. Nesse caso o modelo não fecha nem com 21% de fatia, e a saída é renegociar o split global ou encerrar com perda total inferior a R$ 60 mil.</li>
+      <li><strong>Zona cinzenta (0,65%-0,8%):</strong> estender o piloto por mais 5 shows focando ativação e pacotes antes de decidir. Não escalar no escuro.</li>
+    </ul>
+  </div></div>
+
+  <div class="gate"><div class="gnum">2</div><div class="gbody">
+    <h3>Tração: 30 a 50 shows em 3 meses</h3>
+    <ul>
+      <li><strong>Avança se:</strong> margem ≥ R$ 280/show após impostos · churn de fotógrafos &lt; 30% · operação simultânea em 2 cidades comprovada.</li>
+      <li>Em paralelo: executar a tabela decrescente da Flashz com os gatilhos de entrega, internalizar os playbooks e consolidar o ranking de fotógrafos com dados próprios.</li>
+    </ul>
+  </div></div>
+
+  <div class="gate"><div class="gnum">3</div><div class="gbody">
+    <h3>Escala: circuito completo + ano 2 a 21%</h3>
+    <ul>
+      <li>243 shows/ano com estrutura regional de coordenadores.</li>
+      <li>Flashz zerada conforme contrato: fatia da PixMe vai a 21% e o lucro base salta para ~R$ 232 mil; no cenário otimista (produção e conversão altas), R$ 660 mil+.</li>
+      <li>Expansão para novos circuitos (festivais, esporte) usando o mesmo motor e a comissão do Claudio como canal de originação.</li>
+    </ul>
+  </div></div>
+
+  <div class="verdict mt">
+    <span class="badge">CONCLUSÃO</span>
+    <h3>O ano 1 paga o aprendizado. O ano 2, com 21% e dados próprios, paga o negócio.</h3>
+    <p>Dentro da banda realista de conversão não existe cenário mágico: existe execução. As três variáveis que vocês controlam (produção por fotógrafo, ativação no estádio e velocidade da tabela Flashz) separam um ano 1 de R$ 68 mil de um de R$ 150 mil+, e um ano 2 de R$ 232 mil de um de R$ 660 mil+. Avance pelo piloto, com os contratos do Gate 0 assinados antes do primeiro clique, medindo conversão e mediana de produção como se a empresa dependesse disso. Porque depende.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">PixMe BR · Business Plan · Junho 2026 · Rev. 8 · Documento interno e confidencial<br>Valores em BRL. Projeções baseadas em premissas declaradas e benchmark Flashz; não constituem aconselhamento jurídico ou financeiro.</div></footer>
+
+<script>
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const C = {green:css('--green'),yellow:css('--yellow'),red:css('--red'),blue:css('--blue'),purple:css('--purple'),muted:css('--muted'),line:css('--line'),ink:css('--ink')};
+Chart.defaults.color = C.muted;
+Chart.defaults.borderColor = 'rgba(39,57,92,.6)';
+Chart.defaults.font.family = "'Segoe UI',system-ui,sans-serif";
+
+const fmtBR = n => n.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const fmtMoney = n => {
+  const a = Math.abs(n);
+  if(a >= 1e6) return (n<0?'-':'')+'R$ '+(a/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+'M';
+  if(a >= 1e3) return (n<0?'-':'')+'R$ '+fmtBR(a/1e3)+' mil';
+  return 'R$ '+fmtBR(n);
+};
+
+// 1. Split ano 1 vs ano 2 (barras horizontais empilhadas)
+new Chart(document.getElementById('chSplit'),{
+  type:'bar',
+  data:{labels:['Ano 1','Ano 2'],
+    datasets:[
+      {label:'Fotógrafo 50%',data:[50,50],backgroundColor:C.blue},
+      {label:'Evento 15%',data:[15,15],backgroundColor:C.muted},
+      {label:'PixMe BR',data:[15,21],backgroundColor:C.green},
+      {label:'Banlek 9%',data:[9,9],backgroundColor:C.purple},
+      {label:'Flashz (decrescente)',data:[6,0],backgroundColor:C.yellow},
+      {label:'Claudio 5% (permanente)',data:[5,5],backgroundColor:C.red}
+    ]},
+  options:{indexAxis:'y',animation:{duration:1400,easing:'easeOutQuart'},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:13,padding:10,font:{size:11.5}}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(' (')[0]}: ${c.parsed.x}% · R$ ${(16*c.parsed.x/100).toFixed(2).replace('.',',')} por foto`}}},
+    scales:{x:{stacked:true,max:100,ticks:{callback:v=>v+'%'}},y:{stacked:true}}}
+});
+
+// 2. Cenários
+new Chart(document.getElementById('chCenarios'),{
+  type:'bar',
+  data:{labels:['Pessimista','Base','Otimista','Base ano 2 (fatia 21%)'],
+    datasets:[{label:'Lucro líquido anual (R$)',data:[-154910,68288,359768,232245],
+      backgroundColor:[C.red,C.yellow,C.green,C.green],borderRadius:8}]},
+  options:{animation:{duration:1400,easing:'easeOutQuart'},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmtMoney(c.parsed.y)}}},
+    scales:{y:{ticks:{callback:v=>fmtMoney(v)}}}}
+});
+
+// 3. Sensibilidade conversão (banda 0,5% a 1,5%; realista 0,7-1,2)
+const convX=[], convY=[], convPt=[];
+for(let c=0.5;c<=1.501;c+=0.1){
+  const rec = 30*3500*(c/100)*16*0.15*243;
+  const baseP = rec*0.32; const imp = rec*0.1633 + Math.max(0,baseP-240000)*0.10;
+  const lucro = Math.round(rec-imp-(1200*243+50000));
+  convY.push(lucro);
+  const inBand = c>=0.699 && c<=1.201;
+  convPt.push(lucro<0 ? C.red : (inBand ? C.green : C.muted));
+  convX.push(c.toLocaleString('pt-BR',{minimumFractionDigits:1})+'%');
+}
+new Chart(document.getElementById('chConv'),{
+  type:'line',
+  data:{labels:convX,datasets:[{label:'Lucro líquido anual',data:convY,
+    borderColor:C.blue,backgroundColor:'rgba(90,162,255,.12)',fill:true,tension:.35,
+    pointBackgroundColor:convPt,pointRadius:5,borderWidth:2.5}]},
+  options:{animation:{duration:1600,easing:'easeOutQuart'},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmtMoney(c.parsed.y)}}},
+    scales:{y:{ticks:{callback:v=>fmtMoney(v)},grid:{color:ctx=>ctx.tick.value===0?'rgba(240,106,106,.5)':'rgba(39,57,92,.6)'}},
+      x:{title:{display:true,text:'Taxa de conversão · pontos verdes = banda realista (0,7% a 1,2%)'}}}}
+});
+
+// 4. Ganho do fotógrafo por produção
+new Chart(document.getElementById('chFot'),{
+  type:'bar',
+  data:{labels:['1.500 fotos · conv. 0,7%','1.500 fotos · conv. 0,8%','3.500 fotos · conv. 0,8%','4.500 fotos · conv. 0,9%','5.000 fotos · conv. 1,0%','5.000 fotos · conv. 1,2%','Cachê mínimo de mercado'],
+    datasets:[{data:[84,96,224,324,400,480,450],
+      backgroundColor:[C.red,C.red,C.yellow,C.yellow,C.green,C.green,'rgba(148,166,196,.45)'],borderRadius:7}]},
+  options:{indexAxis:'y',animation:{duration:1400,easing:'easeOutQuart'},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' R$ '+fmtBR(c.parsed.x)+'/show'}}},
+    scales:{x:{ticks:{callback:v=>'R$ '+fmtBR(v)}}}}
+});
+
+// Simulador
+const $=id=>document.getElementById(id);
+const sliders=['sShows','sFot','sFotos','sConv','sPreco','sCusto','sFixo','sShare'];
+function calc(){
+  const shows=+$('sShows').value, fot=+$('sFot').value, fpf=+$('sFotos').value,
+        conv=+$('sConv').value/10000, preco=+$('sPreco').value,
+        custo=+$('sCusto').value, fixo=+$('sFixo').value*1000, share=+$('sShare').value/100;
+  $('vShows').textContent=shows;
+  $('vFot').textContent=fot;
+  $('vFotos').textContent=fmtBR(fpf);
+  $('vConv').textContent=(conv*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:2})+'%';
+  $('vPreco').textContent='R$ '+preco;
+  $('vCusto').textContent='R$ '+fmtBR(custo);
+  $('vFixo').textContent='R$ '+fmtBR(fixo/1000)+' mil';
+  $('vShare').textContent=Math.round(share*100)+'%';
+
+  const fotosShow=fot*fpf, vendasShow=fotosShow*conv;
+  const gmv=vendasShow*preco*shows;
+  const rec=gmv*share;
+  const baseP=rec*0.32;
+  const imp=rec*0.1633+Math.max(0,baseP-240000)*0.10;
+  const custos=custo*shows+fixo;
+  const lucro=rec-imp-custos;
+  const ganhoFot=vendasShow*preco*0.5/fot;
+
+  $('oGmv').textContent=fmtMoney(gmv);
+  $('oRec').textContent=fmtMoney(rec);
+  $('oImp').textContent=fmtMoney(imp);
+  $('oCustos').textContent=fmtMoney(custos);
+  const oL=$('oLucro'); oL.textContent=fmtMoney(lucro);
+  oL.style.color=lucro>50000?C.green:(lucro>-20000?C.yellow:C.red);
+  const oF=$('oFotG'); oF.textContent='R$ '+fmtBR(ganhoFot);
+  oF.style.color=ganhoFot>=350?C.green:(ganhoFot>=220?C.yellow:C.red);
+  // tabela de split anual
+  const flS=Math.min(0.06,Math.max(0,0.21-share));
+  const evS=1-0.50-0.09-0.05-share-flS;
+  $('tFot').textContent=fmtMoney(gmv*0.5);
+  $('tFotU').textContent=fmtMoney(gmv*0.5/fot);
+  $('pEv').textContent=Math.round(evS*100)+'%';
+  $('tEv').textContent=fmtMoney(gmv*evS);
+  $('tBan').textContent=fmtMoney(gmv*0.09);
+  $('pFl').textContent=Math.round(flS*100)+'%';
+  $('tFl').textContent=fmtMoney(gmv*flS);
+  $('tCla').textContent=fmtMoney(gmv*0.05);
+  $('pPix').textContent=Math.round(share*100)+'%';
+  $('tPix').textContent=fmtMoney(rec);
+  const tPixL=$('tPixL'); tPixL.textContent=fmtMoney(lucro); tPixL.style.color=lucro>=0?C.green:C.red; tPixL.style.fontWeight='700';
+  $('tUsa').textContent=lucro>0?fmtMoney(lucro*0.20*0.90):'R$ 0';
+  const b=$('simBadge');
+  if(lucro>150000&&ganhoFot>=300){b.className='b-grn';b.textContent='VIÁVEL E SAUDÁVEL';}
+  else if(lucro>50000){b.className='b-grn';b.textContent='VIÁVEL, MARGEM APERTADA';}
+  else if(lucro>-20000){b.className='b-yel';b.textContent='EMPATE TÉCNICO';}
+  else{b.className='b-red';b.textContent='INVIÁVEL NESTAS PREMISSAS';}
+}
+sliders.forEach(s=>$(s).addEventListener('input',calc));
+calc();
+
+// reveal animations
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
